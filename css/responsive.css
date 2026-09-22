@@ -1,3 +1,9 @@
+﻿/* 1440px — Large Desktop, expand max container size */
+@media (min-width: 1440px) {
+  :root {
+    --container: 84rem;
+  }
+}
 /* Corelane Systems — breakpoints
    Targets: 1440 (default), 1200, 992, 768, 480, 360 */
 
@@ -405,6 +411,7 @@
   .newsletter__row {
     flex-direction: column;
   }
+  .newsletter__row input { min-width: 0; width: 100%; }
 
   .newsletter__row .btn {
     width: 100%;
