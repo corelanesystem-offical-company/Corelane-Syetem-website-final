@@ -261,7 +261,9 @@
             <li><a href="/pages/real-estate.html">Real Estate</a></li>
           </ul>
           <h2 class="site-footer__heading" style="margin-top:1.5rem">Newsletter</h2>
-          <form class="newsletter" data-validate>
+          <form class="newsletter" data-validate action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="0b28c78f-d044-431a-9856-1850336cb8ad">
+            <input type="hidden" name="subject" value="New Newsletter Subscription from Website">
             <label class="visually-hidden" for="news-email">Email address</label>
             <div class="newsletter__row">
               <input id="news-email" name="email" type="email" required placeholder="Your email address" />

@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   function emailOk(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
@@ -41,16 +41,40 @@
         submit.disabled = true;
         submit.setAttribute("aria-busy", "true");
       }
-      window.setTimeout(function () {
-        if (submit) {
-          submit.disabled = false;
-          submit.removeAttribute("aria-busy");
+      
+      const formData = new FormData(form);
+      const actionUrl = form.getAttribute("action") || "https://api.web3forms.com/submit";
+      
+      fetch(actionUrl, {
+        method: "POST",
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
         }
-        status.classList.add("is-success");
-        status.textContent =
-          "Details look valid. This site does not store submissions yet — email corelanesystem@gmail.com or WhatsApp +92 301 2756091.";
-        form.reset();
-      }, 400);
+      })
+      .then(response => response.json())
+      .then(json => {
+          if (submit) {
+            submit.disabled = false;
+            submit.removeAttribute("aria-busy");
+          }
+          if (json.success) {
+            status.classList.add("is-success");
+            status.textContent = "Message sent successfully! We will get back to you shortly.";
+            form.reset();
+          } else {
+            status.classList.add("is-error");
+            status.textContent = json.message || "Something went wrong. Please try again later.";
+          }
+      })
+      .catch(error => {
+          if (submit) {
+            submit.disabled = false;
+            submit.removeAttribute("aria-busy");
+          }
+          status.classList.add("is-error");
+          status.textContent = "Something went wrong! Please try again later.";
+      });
     });
   }
 
