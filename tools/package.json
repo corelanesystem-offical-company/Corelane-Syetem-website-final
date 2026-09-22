@@ -1,0 +1,8 @@
+{
+  "name": "corelane-image-tools",
+  "private": true,
+  "description": "One-off image conversion helpers. Not a site runtime dependency.",
+  "dependencies": {
+    "sharp": "^0.35.4"
+  }
+}

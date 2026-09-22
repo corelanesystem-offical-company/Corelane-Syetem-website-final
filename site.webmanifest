@@ -1,0 +1,15 @@
+{
+  "name": "Corelane Systems",
+  "short_name": "Corelane",
+  "start_url": "/index.html",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#1e5aab",
+  "icons": [
+    {
+      "src": "/images/opt/corelane-logo.png",
+      "sizes": "288x288",
+      "type": "image/png"
+    }
+  ]
+}
