@@ -1,8 +1,8 @@
-(function () {
+﻿(function () {
   const home = document.getElementById("service-grid");
   const all = document.getElementById("service-catalog");
   if (!window.Corelane) return;
-  function photoCard(item) {
+  function photoCard(item, idx) {
     if (!item.image) {
       return (
         '<a class="service-card" href="' +
@@ -16,6 +16,7 @@
     }
     const stem = item.image.replace(/\.jpg$/i, "");
     const alt = item.imageAlt || "";
+    const loadingAttr = (idx != null && idx < 4) ? 'fetchpriority="high"' : 'loading="lazy"';
     return (
       '<a class="service-card service-card--photo" href="' +
       item.href +
@@ -31,7 +32,7 @@
       item.image +
       ' 1600w" width="1600" height="894" alt="' +
       alt +
-      '" loading="lazy" decoding="async"></picture></span><span class="service-card__body"><h3>' +
+      '" ' + loadingAttr + ' decoding="async"></picture></span><span class="service-card__body"><h3>' +
       item.title +
       "</h3><p>" +
       item.description +
@@ -48,8 +49,8 @@
 
   const work = document.getElementById("work-grid");
   if (work) {
-    work.innerHTML = Corelane.work
-      .map(function (item) {
+    work.innerHTML = Corelane.work.map(function (item, idx) {
+        const loadingAttr = idx < 3 ? 'fetchpriority="high"' : 'loading="lazy"';
         const img = item.image;
         const href = item.href;
         const jpg800 = img.replace(".jpg", "-800.jpg");
@@ -74,7 +75,7 @@
           img +
           ' 1600w" sizes="(max-width: 639px) 100vw, 30rem" width="1600" height="894" alt="' +
           alt +
-          '" loading="lazy" decoding="async"></picture></div><div class="work-card__body"><span class="sample-flag">' +
+          '" ' + loadingAttr + ' decoding="async"></picture></div><div class="work-card__body"><span class="sample-flag">' +
           flag +
           '</span><span class="work-card__label">' +
           item.category +
