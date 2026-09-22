@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   document.documentElement.classList.add("js-enabled");
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -173,3 +173,49 @@
     });
   }
 })();
+
+  // Scroll Progress Bar
+  function initScrollProgress() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const bar = document.createElement("div");
+    bar.style.position = "absolute";
+    bar.style.bottom = "0";
+    bar.style.left = "0";
+    bar.style.height = "2px";
+    bar.style.background = "var(--color-primary)";
+    bar.style.width = "0%";
+    bar.style.zIndex = "100";
+    bar.style.transition = "width 0.1s ease-out";
+    bar.style.pointerEvents = "none";
+    
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+    header.appendChild(bar);
+
+    window.addEventListener("scroll", function() {
+      const scrollPx = document.documentElement.scrollTop || document.body.scrollTop;
+      const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (scrollPx / winHeightPx) * 100;
+      bar.style.width = scrolled + "%";
+    }, { passive: true });
+  }
+  
+  initScrollProgress();
+  // Subtle Parallax for Hero Images
+  function initParallax() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const heroBgs = document.querySelectorAll('.page-hero__bg img, .hero__floaters');
+    if (!heroBgs.length) return;
+    
+    window.addEventListener("scroll", function() {
+      const scrolled = document.documentElement.scrollTop || document.body.scrollTop;
+      // Only animate if near the top
+      if (scrolled > window.innerHeight) return;
+      
+      heroBgs.forEach(function(el) {
+        // Subtle move down
+        el.style.transform = "translateY(" + (scrolled * 0.15) + "px)";
+      });
+    }, { passive: true });
+  }
+  initParallax();
